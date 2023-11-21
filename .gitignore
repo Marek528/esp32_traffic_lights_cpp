@@ -1,0 +1,8 @@
+# Configuration files
+sdkconfig
+sdkconfig.old
+
+# Production folder
+build/
+
+.devcontainer
