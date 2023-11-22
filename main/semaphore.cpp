@@ -10,7 +10,7 @@ const char *Semaphore::TAG = "SEMAPHORE";
 
 const TickType_t TIME_WAITING = 5000;
 const TickType_t TIME_YELLOW_CARS = 2000;
-const TickType_t TIME_CARS_TRANSIT = 1000;
+const TickType_t TIME_CARS_TRANSIT = 2000;
 const TickType_t TIME_GREEN_PEDS = 5000;
 const TickType_t TIME_PEDS_TRANSIT = 5000;
 const TickType_t TIME_RED_YELLOW = 1000;
@@ -42,11 +42,6 @@ void Semaphore::state_green_cars()
 
 void Semaphore::state_green_button_pressed_cars()
 {
-    m_red_cars.off();
-    m_yellow_cars.off();
-    m_green_cars.on();
-    m_red_peds.on();
-    m_green_peds.off();
     m_wait_peds.on();
 
     vTaskDelay(TIME_WAITING / portTICK_PERIOD_MS);
@@ -54,12 +49,8 @@ void Semaphore::state_green_button_pressed_cars()
 
 void Semaphore::state_yellow_cars()
 {
-    m_red_cars.off();
     m_yellow_cars.on();
     m_green_cars.off();
-    m_red_peds.on();
-    m_green_peds.off();
-    m_wait_peds.on();
 
     vTaskDelay(TIME_YELLOW_CARS / portTICK_PERIOD_MS);
 }
@@ -68,19 +59,12 @@ void Semaphore::state_red_cars()
 {
     m_red_cars.on();
     m_yellow_cars.off();
-    m_green_cars.off();
-    m_red_peds.on();
-    m_green_peds.off();
-    m_wait_peds.on();
 
     vTaskDelay(TIME_CARS_TRANSIT / portTICK_PERIOD_MS);
 }
 
 void Semaphore::state_green_peds()
 {
-    m_red_cars.on();
-    m_yellow_cars.off();
-    m_green_cars.off();
     m_red_peds.off();
     m_green_peds.on();
     m_wait_peds.off();
@@ -90,24 +74,15 @@ void Semaphore::state_green_peds()
 
 void Semaphore::state_red_peds()
 {
-    m_red_cars.on();
-    m_yellow_cars.off();
-    m_green_cars.off();
     m_red_peds.on();
     m_green_peds.off();
-    m_wait_peds.off();
 
     vTaskDelay(TIME_PEDS_TRANSIT / portTICK_PERIOD_MS);
 }
 
 void Semaphore::state_red_yellow_cars()
 {
-    m_red_cars.on();
     m_yellow_cars.on();
-    m_green_cars.off();
-    m_red_peds.on();
-    m_green_peds.off();
-    m_wait_peds.off();
 
     vTaskDelay(TIME_RED_YELLOW / portTICK_PERIOD_MS);
 }
